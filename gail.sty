@@ -1,0 +1,458 @@
+% // ------------//______\\------------ \\
+% \\ ------------\\‾‾‾‾‾‾//------------ //
+%
+%
+%                   GAIL
+%
+%     Grundgerüst für Abgaben In LaTeX
+%
+%
+%
+%                 ver.1.1
+%
+%     Copyright (C) 2015 Hauke Stieler
+%
+%
+% << ------------<<======>>------------ >>
+%
+% 	ver: 1.0
+% 		key feautres:
+%			- show detailed error messages
+%			- render fancy front page
+%			- calculate date of deadline
+%			- lots of setter for variables
+%	ver: 1.1
+%		key features:
+%			- use section to display e.g. 4.3
+%			  (and not subsection anymore)
+%
+%	ToDo:
+%		- make more authors possible
+%			- if possible with a list
+%		- more fancy rendering of error
+%		  messages (especially in header)
+%		- more detailes in error messages
+%
+% // ------------//______\\------------ \\
+% \\ ------------\\‾‾‾‾‾‾//------------ //
+
+
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[ngerman]{datenumber}
+\usepackage{mathtools}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{algorithm}
+\usepackage{algcompatible}
+\usepackage{algpseudocode}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{hyperref}
+
+\usepackage[left=3cm,right=2.5cm,top=3.5cm,bottom=3cm]{geometry}
+
+% Break State for the algorithm package
+\newcommand{\Break}{\State\textbf{break}}
+
+
+
+% << ------<<=====>>------ >>
+% Interne error-funktion
+% << ------<<=====>>------ >>
+\newcommand{\error}[1]{\textcolor{red}{\textsc{\underline{error:} #1}}}
+
+
+
+% << ------<<=====>>------ >>
+% Variablen für Autoren etc.
+% << ------<<=====>>------ >>
+\newcommand{\firstauthorvar}{$ $}
+\newcommand{\firstauthorIDvar}{$ $}
+\newcommand{\secondauthorvar}{$ $}
+\newcommand{\secondauthorIDvar}{$ $}
+\newcommand{\thirdauthorvar}{$ $}
+\newcommand{\thirdauthorIDvar}{$ $}
+\newcommand{\carerVar}{\error{carer not set!}}
+
+\newcommand{\thesheetnumber}{-1}
+\setdatenumber{1800}{1}{01}
+\newcommand{\datefreq}{7}
+
+\newcommand{\thetitle}{\huge \error{title not set!}}
+
+
+
+% << ------<<=====>>------ >>
+% Setter für die Variablen
+% << ------<<=====>>------ >>
+\newcommand{\setfirstauthor}[1]{\renewcommand{\firstauthorvar}{#1}}
+\newcommand{\setfirstauthorID}[1]{\renewcommand{\firstauthorIDvar}{#1}}
+\newcommand{\setsecondauthor}[1]{\renewcommand{\secondauthorvar}{#1}}
+\newcommand{\setsecondauthorID}[1]{\renewcommand{\secondauthorIDvar}{#1}}
+\newcommand{\setthirdauthor}[1]{\renewcommand{\thirdauthorvar}{#1}}
+\newcommand{\setthirdauthorID}[1]{\renewcommand{\thirdauthorIDvar}{#1}}
+\newcommand{\setcarer}[1]{\renewcommand{\carerVar}{#1}}
+
+\newcommand{\setsheetnumber}[1]
+{
+	\renewcommand{\thesheetnumber}{#1}
+	\setcounter{section}		{0}
+	\setcounter{subsection}		{0}
+	\setcounter{subsubsection}	{0}
+	\titleformat{name=\section}					{\Large\bfseries}{}{0pt}{Aufgabe \thesheetnumber .\thesection\quad}
+	\titleformat{name=\subsection}				{\large\bfseries}{}{0pt}{Aufgabe \thesheetnumber .\thesubsection\quad}
+	\titleformat{name=\subsubsection}			{\normalfont\bfseries}{}{0pt}{Aufgabe \thesheetnumber .\thesubsection .\alph{subsubsection}\quad}
+	
+	\titleformat{name=\section,numberless}			{\Large\bfseries}{}{0pt}{}
+	\titleformat{name=\subsection,numberless}		{\large\bfseries}{}{0pt}{}
+	\titleformat{name=\subsubsection,numberless}	{\normalfont\bfseries}{}{0pt}{}
+}
+\newcommand{\settitle}[1]{\renewcommand{\thetitle}{\huge #1}}
+\newcommand{\setstartdate}[3]{\setdatenumber{#1}{#2}{#3}}
+\newcommand{\setdatefreq}[1]{\renewcommand{\datefreq}{#1}}
+
+
+
+% << ------<<=====>>------ >>
+% Für Autoren Header
+% << ------<<=====>>------ >>
+\newcommand{\theauthor}
+{
+	\sbox1{\firstauthorvar}%
+	\sbox2{\secondauthorvar}%
+	\sbox3{\thirdauthorvar}%
+	\ifdim\wd1=0pt
+		\error{first author not set!}
+		\ifdim\wd2>0pt
+			\error{you need a first author to set the second one!}
+		\fi
+		\ifdim\wd3>0pt
+			\error{you need a first and second author to set the third one!}
+		\fi
+	\else
+		\firstauthorvar
+		%check if second author exists
+		\ifdim\wd2=0pt
+			%error when third author exists but second doesn't
+			\ifdim\wd3>0pt
+				\error{you need a second author to set the third one!}
+			\fi
+		\else
+			, \secondauthorvar
+			%check if third author exists
+			\ifdim\wd3=0pt
+			\else
+				, \thirdauthorvar
+			\fi
+		\fi
+	\fi
+}
+
+
+
+% << ------<<=====>>------ >>
+% Für Autoren Liste
+% << ------<<=====>>------ >>
+\newcommand{\theauthors}
+{
+	\sbox1{\firstauthorvar}%
+	\sbox2{\firstauthorIDvar}%
+	
+	\begin{minipage}{0.25\textwidth}
+		\center 
+		\ifdim\wd1=0pt
+			\error{first author not set!}
+		\else
+			\firstauthorvar
+		\fi 
+		\\\small
+		(\ifdim\wd2=0pt
+			\small\error{first author-id not set!})
+		\else
+			 \firstauthorIDvar)
+		\fi
+	\end{minipage}
+	
+	\sbox1{\secondauthorvar}%
+	\sbox2{\secondauthorIDvar}%
+	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
+		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
+		\begin{minipage}{0.25\textwidth}
+			% zeige error, dass name nicht existiert und zeige ID
+			\center\error{second author not set!} \\\small(\secondauthorIDvar)
+		\end{minipage}
+		\fi
+	\else % autor existiert
+		\begin{minipage}{0.25\textwidth}
+			\center \secondauthorvar \\\small
+			% prüfe ob id existiert
+			(\ifdim\wd2=0pt
+				\small\error{second author-id not set!})
+			\else
+				 \secondauthorIDvar)
+			\fi
+		\end{minipage}
+	\fi
+	
+	\sbox1{\thirdauthorvar}%
+	\sbox2{\thirdauthorIDvar}%
+	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
+		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
+			\begin{minipage}{0.25\textwidth}
+			% zeige error, dass name nicht existiert und zeige ID
+				\center \error{third author not set!} \\\small(\thirdauthorIDvar)
+			\end{minipage}
+		\fi
+	\else % autor existiert
+		\begin{minipage}{0.25\textwidth}
+			\center \thirdauthorvar \\\small
+			% prüfe ob id existiert
+			(\ifdim\wd2=0pt
+				\small\error{third author-id not set!})
+			\else
+				 \thirdauthorIDvar)
+			\fi
+		\end{minipage}
+	\fi
+	
+	\sbox1{\firstauthorvar}%
+	\ifdim\wd1=0pt
+		\sbox2{\secondauthorvar}%
+		\ifdim\wd2>0pt
+			\\\error{you need a first author to set the second one!}
+			\sbox3{\thirdauthorvar}%
+			\ifdim\wd3>0pt
+				\\\error{you need a first author to set the third one!}
+			\fi
+		\else
+			\sbox3{\thirdauthorvar}%
+			\ifdim\wd3>0pt
+				\\\error{you need a first and second author to set the third one!}
+			\fi
+		\fi
+	\else
+		\sbox2{\secondauthorvar}%
+		%check if second author exists
+		\ifdim\wd2=0pt
+			\sbox3{\thirdauthorvar}%
+			%error when third author exists but second doesn't
+			\ifdim\wd3>0pt
+				\\\error{you need a second author to set the third one!}
+			\fi
+		\fi
+	\fi
+	
+	\vspace{0.4cm}
+}
+
+
+
+% << ------<<=====>>------ >>
+% Für "- Übungsblatt x -"
+% << ------<<=====>>------ >>
+\newcommand{\thesubtitle}
+{
+	\Large ---~ Übungsblatt 
+	\ifnum \thesheetnumber = -1
+		\error{sheet number not set!}
+	\else
+		\thesheetnumber
+	\fi 
+	~~---
+}
+
+
+
+% << ------<<=====>>------ >>
+% Datumsberechnung
+% << ------<<=====>>------ >>
+% Berechnet Datum in zwei wochen
+\newcommand*{\thedeadline}
+{
+	\ifnum \thesheetnumber = -1
+		\error{set sheet number to calculate date!}
+	\else
+		\ifnum \thedateyear = 1800
+			\error{start date not set!}
+		\else
+			\addtocounter{datenumber}{\datefreq*\thesheetnumber}\setdatebynumber{\thedatenumber}\datedate
+		\fi
+	\fi
+	\vspace{0.875cm}
+}
+
+
+
+% << ------<<=====>>------ >>
+% Title stuff setzen
+% << ------<<=====>>------ >>
+\author{\theauthors}
+\title{\thetitle\n\thesubtitle\\\vspace{0.2cm}\normalsize Betreuer: \carerVar\vspace{0.35cm}}
+\date{Abgabe am:\thedeadline}
+
+
+
+% << ------<<=====>>------ >>
+% Section stuff machen
+% << ------<<=====>>------ >>
+\setcounter{section}{\thesheetnumber}
+\setcounter{subsection}{0}
+\titleformat{\subsection}{\large\bfseries}{}{0pt}{Aufgabe \thesubsection\quad}
+
+
+
+% << ------<<=====>>------ >>
+% Praktische commands
+% << ------<<=====>>------ >>
+\newcommand{\n}{\vspace{5pt}\\}
+\newcommand{\qed}{\\\hspace*{\fill}$\square$}
+\newcommand{\limn}{\lim\limits_{n\to\infty}} % normaler limes mit n -> unendl.
+
+
+
+% << ------<<=====>>------ >>
+% Floating code Umgebung
+% << ------<<=====>>------ >>
+% danke Stackoverflow für die breakablealgorithm umgebung :D
+\makeatletter
+\newenvironment{breakablealgorithm}
+{
+	\begin{center}
+		\refstepcounter{algorithm}% New algorithm
+		\hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+		\renewcommand{\caption}[2][\relax]{% Make a new \caption
+		{
+			\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+			\ifx\relax##1\relax % #1 is \relax
+				\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+			\else % #1 is not \relax
+				\addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+			\fi
+			\kern2pt\hrule\kern2pt
+		}
+}
+{
+	\kern2pt\hrule\relax
+	\end{center}
+}
+\makeatother
+
+
+
+% << ------<<=====>>------ >>
+% Für Gauss-Klammern
+% << ------<<=====>>------ >>
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+
+
+% << ------<<=====>>------ >>
+% Für header/footer Anzeige
+% << ------<<=====>>------ >>
+\makeatletter
+	\let\ps@plain\ps@fancy
+\makeatother
+
+
+
+% << ------<<=====>>------ >>
+% Darstellungen für Dinge
+% << ------<<=====>>------ >>
+\pagestyle{fancy}
+\lhead{\theauthor}
+\chead{Übungsblatt \ifnum\thesheetnumber=-1\error{sheet number not set!}\else\thesheetnumber\fi}
+\rhead{\today}
+\renewcommand{\headrulewidth}{0.4pt} %obere linie
+\renewcommand{\footrulewidth}{0.4pt} %untere linie
+\rfoot{Seite \thepage \ von \pageref*{LastPage}}
+\cfoot{}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% "Here're 3 magic carrots, one of them is sleeping
+%  and the two other are engaged in a conversation."
+% "Hi guys!"
+% 
+%                   __ Hi CeeJay!   Hey, did you hear the one about
+%                  /              , the potato and the cucumber ?
+%  __"__       __"__    __"__ ,--'
+% ( -_- )     ( ._. )  ( ._. )
+%  \   /       \   /    \   /
+%   \ /         \ /      \ /
+%    Y           Y        Y
+% 
+% 
+% "Yep .. heard that one.."
+% 
+% RANDOM
