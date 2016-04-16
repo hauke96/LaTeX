@@ -86,7 +86,7 @@
 \newcommand{\secondauthorIDvar}{$ $}
 \newcommand{\thirdauthorvar}{$ $}
 \newcommand{\thirdauthorIDvar}{$ $}
-\newcommand{\carerVar}{\error{carer not set!}}
+\newcommand{\carerVar}{$ $}%\error{carer not set!}}
 
 \newcommand{\thesheetnumber}{-1}
 \setdatenumber{1800}{1}{01}
@@ -301,7 +301,13 @@
 % Title stuff setzen
 % << ------<<=====>>------ >>
 \author{\theauthors}
-\title{\thetitle\n\thesubtitle\\\vspace{0.2cm}\normalsize Betreuer: \carerVar\vspace{0.35cm}}
+\title{\thetitle\n\thesubtitle\\\vspace{0.2cm}\normalsize
+	\sbox1{\carerVar}%
+	\ifdim\wd1=0pt
+	\else
+		Betreuer: \carerVar\vspace{0.35cm}
+	\fi
+}
 \date{Abgabe am:\thedeadline}
 
 
