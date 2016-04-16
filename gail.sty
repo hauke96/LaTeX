@@ -86,6 +86,8 @@
 \newcommand{\secondauthorIDvar}{$ $}
 \newcommand{\thirdauthorvar}{$ $}
 \newcommand{\thirdauthorIDvar}{$ $}
+\newcommand{\fourthauthorvar}{$ $}
+\newcommand{\fourthauthorIDvar}{$ $}
 \newcommand{\carerVar}{$ $}%\error{carer not set!}}
 
 \newcommand{\thesheetnumber}{-1}
@@ -105,6 +107,8 @@
 \newcommand{\setsecondauthorID}[1]{\renewcommand{\secondauthorIDvar}{#1}}
 \newcommand{\setthirdauthor}[1]{\renewcommand{\thirdauthorvar}{#1}}
 \newcommand{\setthirdauthorID}[1]{\renewcommand{\thirdauthorIDvar}{#1}}
+\newcommand{\setfourthauthor}[1]{\renewcommand{\fourthauthorvar}{#1}}
+\newcommand{\setfourthauthorID}[1]{\renewcommand{\fourthauthorIDvar}{#1}}
 \newcommand{\setcarer}[1]{\renewcommand{\carerVar}{#1}}
 
 \newcommand{\setsheetnumber}[1]
@@ -135,6 +139,7 @@
 	\sbox1{\firstauthorvar}%
 	\sbox2{\secondauthorvar}%
 	\sbox3{\thirdauthorvar}%
+	\sbox4{\fourthauthorvar}%
 	\ifdim\wd1=0pt
 		\error{first author not set!}
 		\ifdim\wd2>0pt
@@ -143,11 +148,14 @@
 		\ifdim\wd3>0pt
 			\error{you need a first and second author to set the third one!}
 		\fi
+		\ifdim\wd4>0pt
+			\error{you need a first, second and third author to set the fourth one!}
+		\fi
 	\else
 		\firstauthorvar
 		%check if second author exists
 		\ifdim\wd2=0pt
-			%error when third author exists but second doesn't
+			%error when further authors exists but second doesn't
 			\ifdim\wd3>0pt
 				\error{you need a second author to set the third one!}
 			\fi
@@ -155,8 +163,17 @@
 			, \secondauthorvar
 			%check if third author exists
 			\ifdim\wd3=0pt
+				%error when further authors exists but third doesn't
+				\ifdim\wd4>0pt
+					\error{you need a third author to set the fourth one!}
+				\fi
 			\else
 				, \thirdauthorvar
+				%check if fourth author exists
+				\ifdim\wd4=0pt
+				\else
+					, \fourthauthorvar
+				\fi
 			\fi
 		\fi
 	\fi
@@ -228,31 +245,114 @@
 			\fi
 		\end{minipage}
 	\fi
+%	
+%	\sbox1{\firstauthorvar}%
+%	\ifdim\wd1=0pt
+%		\sbox2{\secondauthorvar}%
+%		\ifdim\wd2>0pt
+%			\\\error{you need a first author to set the second one!}
+%			\sbox3{\thirdauthorvar}%
+%			\ifdim\wd3>0pt
+%				\\\error{you need a first author to set the third one!}
+%			\fi
+%		\else
+%			\sbox3{\thirdauthorvar}%
+%			\ifdim\wd3>0pt
+%				\\\error{you need a first and second author to set the third one!}
+%			\fi
+%		\fi
+%	\else
+%		\sbox2{\secondauthorvar}%
+%		%check if second author exists
+%		\ifdim\wd2=0pt
+%			\sbox3{\thirdauthorvar}%
+%			%error when third author exists but second doesn't
+%			\ifdim\wd3>0pt
+%		
+%			%check if third author exists
+%			\ifdim\wd3=0pt
+%				%error when further authors exists but third doesn't
+%				\ifdim\wd4>0pt
+%					\error{you need a third author to set the fourth one!}
+%				\fi
+%			\else
+%				, \thirdauthorvar
+%			\fi		\\\error{you need a second author to set the third one!}
+%			\fi
+%		\fi
+%	\fi
+	
+	
+	
+	
+	
+	
+	\sbox1{\fourthauthorvar}%
+	\sbox2{\fourthauthorIDvar}%
+	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
+		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
+			\begin{minipage}{0.25\textwidth}
+			% zeige error, dass name nicht existiert und zeige ID
+				\center \error{fourth author not set!} \\\small(\fourthauthorIDvar)
+			\end{minipage}
+		\fi
+	\else % autor existiert
+		\begin{minipage}{0.25\textwidth}
+			\center \fourthauthorvar \\\small
+			% prüfe ob id existiert
+			(\ifdim\wd2=0pt
+				\small\error{fourth author-id not set!})
+			\else
+				 \fourthauthorIDvar)
+			\fi
+		\end{minipage}
+	\fi
 	
 	\sbox1{\firstauthorvar}%
+	\sbox2{\secondauthorvar}%
+	\sbox3{\thirdauthorvar}%
+	\sbox4{\fourthauthorvar}%
+	
 	\ifdim\wd1=0pt
-		\sbox2{\secondauthorvar}%
-		\ifdim\wd2>0pt
-			\\\error{you need a first author to set the second one!}
-			\sbox3{\thirdauthorvar}%
-			\ifdim\wd3>0pt
-				\\\error{you need a first author to set the third one!}
+		\ifdim\wd2=0pt
+			\ifdim\wd3=0pt
+				\ifdim\wd4=0pt % no author
+					\\\error{WTF, there's not a single author ... how can this document exist? :o}
+				\fi
+			\else % just fourth author
+				\\\error{you need a first, second and third author to set the fourth one!}
 			\fi
-		\else
-			\sbox3{\thirdauthorvar}%
-			\ifdim\wd3>0pt
-				\\\error{you need a first and second author to set the third one!}
+		\else % not first, but second author
+			\ifdim\wd3=0pt % not first, second, not third
+				\ifdim\wd4=0pt
+					\\\error{you need a first author to set the second one!}
+				\else % not first, second, not third, fourth
+					\\\error{you need a first and third author to set the second and fourth one!}
+				\fi
+			\else % not first, second, third
+				\ifdim\wd4=0pt % not first, second, third, not fourth
+				\else % not first, second, third, fourth
+					\\\error{you need a first author to set the second, third and fourth one!}
+				\fi
 			\fi
 		\fi
-	\else
-		\sbox2{\secondauthorvar}%
-		%check if second author exists
+	\else % first author exists
 		\ifdim\wd2=0pt
-			\sbox3{\thirdauthorvar}%
-			%error when third author exists but second doesn't
-			\ifdim\wd3>0pt
-				\\\error{you need a second author to set the third one!}
+			\ifdim\wd3=0pt
+			\else % just fourth author
+				\\\error{you need a second and third author to set the fourth one!}
 			\fi
+		\else % first, second author
+			\ifdim\wd3=0pt % first, second, not third
+				\ifdim\wd4=0pt
+				\else % first, second, not third, fourth
+					\\\error{you need a third author to set the fourth one!}
+				\fi
+%			\else % first, second, third
+%				\ifdim\wd4=0pt % first, second, third, not fourth
+%				\else % first, second, third, fourth
+%				\fi
+%			\fi
 		\fi
 	\fi
 	
