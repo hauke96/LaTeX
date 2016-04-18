@@ -188,7 +188,7 @@
 	\sbox2{\firstauthorIDvar}%
 	
 	\begin{minipage}{0.25\textwidth}
-		\center 
+		\center
 		\ifdim\wd1=0pt
 			\error{first author not set!}
 		\else
@@ -198,7 +198,7 @@
 		(\ifdim\wd2=0pt
 			\small\error{first author-id not set!})
 		\else
-			 \firstauthorIDvar)
+			\firstauthorIDvar)
 		\fi
 	\end{minipage}
 	
@@ -218,7 +218,7 @@
 			(\ifdim\wd2=0pt
 				\small\error{second author-id not set!})
 			\else
-				 \secondauthorIDvar)
+				\secondauthorIDvar)
 			\fi
 		\end{minipage}
 	\fi
@@ -229,7 +229,7 @@
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
 			\begin{minipage}{0.25\textwidth}
 			% zeige error, dass name nicht existiert und zeige ID
-				\center \error{third author not set!} \\\small(\thirdauthorIDvar)
+				\center\error{third author not set!} \\\small(\thirdauthorIDvar)
 			\end{minipage}
 		\fi
 	\else % autor existiert
@@ -239,50 +239,15 @@
 			(\ifdim\wd2=0pt
 				\small\error{third author-id not set!})
 			\else
-				 \thirdauthorIDvar)
+				\thirdauthorIDvar)
 			\fi
 		\end{minipage}
 	\fi
-%	
-%	\sbox1{\firstauthorvar}%
-%	\ifdim\wd1=0pt
-%		\sbox2{\secondauthorvar}%
-%		\ifdim\wd2>0pt
-%			\\\error{you need a first author to set the second one!}
-%			\sbox3{\thirdauthorvar}%
-%			\ifdim\wd3>0pt
-%				\\\error{you need a first author to set the third one!}
-%			\fi
-%		\else
-%			\sbox3{\thirdauthorvar}%
-%			\ifdim\wd3>0pt
-%				\\\error{you need a first and second author to set the third one!}
-%			\fi
-%		\fi
-%	\else
-%		\sbox2{\secondauthorvar}%
-%		%check if second author exists
-%		\ifdim\wd2=0pt
-%			\sbox3{\thirdauthorvar}%
-%			%error when third author exists but second doesn't
-%			\ifdim\wd3>0pt
-%		
-%			%check if third author exists
-%			\ifdim\wd3=0pt
-%				%error when further authors exists but third doesn't
-%				\ifdim\wd4>0pt
-%					\error{you need a third author to set the fourth one!}
-%				\fi
-%			\else
-%				, \thirdauthorvar
-%			\fi		\\\error{you need a second author to set the third one!}
-%			\fi
-%		\fi
-%	\fi
 	
 	
-	
-	
+	%
+	%	Display of error-messages:
+	%
 	
 	
 	\sbox1{\fourthauthorvar}%
@@ -291,7 +256,7 @@
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
 			\begin{minipage}{0.25\textwidth}
 			% zeige error, dass name nicht existiert und zeige ID
-				\center \error{fourth author not set!} \\\small(\fourthauthorIDvar)
+				\center\error{fourth author not set!} \\\small(\fourthauthorIDvar)
 			\end{minipage}
 		\fi
 	\else % autor existiert
@@ -301,7 +266,7 @@
 			(\ifdim\wd2=0pt
 				\small\error{fourth author-id not set!})
 			\else
-				 \fourthauthorIDvar)
+				\fourthauthorIDvar)
 			\fi
 		\end{minipage}
 	\fi
@@ -346,14 +311,19 @@
 				\else % first, second, not third, fourth
 					\\\error{you need a third author to set the fourth one!}
 				\fi
+				
+				
+% This is not used yet, until there's a fifth author
+
 %			\else % first, second, third
 %				\ifdim\wd4=0pt % first, second, third, not fourth
 %				\else % first, second, third, fourth
 %				\fi
 %			\fi
+
+
 		\fi
 	\fi
-	
 	\vspace{0.4cm}
 }
 
