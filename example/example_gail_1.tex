@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[ngerman]{babel}  
+\usepackage[utf8]{inputenc}
+
+\usepackage{../gail}
+\usepackage{../dadp}
+
+\setfirstauthor{Max Mustermann}
+\setfirstauthorID{max@mustermann.de}
+\setsecondauthor{Theo Retiker}
+\setsecondauthorID{info@retiker-studios.com}
+
+% this shows a dummy error message
+%\setthirdauthor{Foo Bar} % MISSING!
+\setthirdauthorID{foo@bar.org}
+
+% There's a maximum amount of four authors
+\setfourthauthor{Hauke Stieler}
+\setfourthauthorID{mail@hauke-stieler.de}
+
+\settitle{Introducing NFCs as authentification protocoll}
+\setsheetnumber{3}
+\setstartdate{2016}{04}{01}
+\setdatefreq{7}
+\setinterruptions{2}
+
+\setsectionstyletasksalphnum{}
+
+\begin{document}
+	\maketitle
+	\section{}
+		This is a test file with some sections in it. Every section contains the sheetnumber as first number. Use \texttt{\textbackslash setsectionstyleplain\{\}}.
+		\subsection{One of our subsections}
+			This is an example subsection.
+			\subsubsection{}
+			There are also subsubsections ;)
+	\section{How the dates work}
+		The command \texttt{\textbackslash setstartdate\{YEAR\}\{MONTH\}\{DAY\}} sets the start date, but this is not the first release date. The first release Date is the date one interval later.\\
+		The interval \texttt{\textbackslash setdatefreq\{DAYS\}} defines the frequency of the releases. This is used for the date calculation.\\
+		If there're some release interrupts (e.g. due to hollydays), the \texttt{\textbackslash setinterruptions\{AMOUNT\}} is your friend.
+\end{document}
