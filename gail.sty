@@ -80,7 +80,7 @@
 
 
 % << ------<<=====>>------ >>
-% Variables for authors etc.
+% Variables
 % << ------<<=====>>------ >>
 \newcommand{\firstauthorvar}{$ $}
 \newcommand{\firstauthorIDvar}{$ $}
@@ -95,6 +95,7 @@
 \newcommand{\thesheetnumber}{-1}
 \setdatenumber{1800}{1}{01}
 \newcommand{\datefreq}{7}
+\newcommand{\interruptions}{0}
 
 \newcommand{\thetitle}{\huge \error{title not set!}}
 
@@ -112,6 +113,7 @@
 \newcommand{\setfourthauthor}[1]{\renewcommand{\fourthauthorvar}{#1}}
 \newcommand{\setfourthauthorID}[1]{\renewcommand{\fourthauthorIDvar}{#1}}
 \newcommand{\setcarer}[1]{\renewcommand{\carerVar}{#1}}
+\newcommand{\setinterruptions}[1]{\renewcommand{\interruptions}{#1}}
 
 
 
@@ -127,27 +129,27 @@
 
 \newcommand{\setsectionstyletasks}
 {
-	\titleformat{name=\section}					{\Large\bfseries}{}{0pt}{\presectiontext\thesheetnumber .\thesection\quad}
-	\titleformat{name=\subsection}				{\large\bfseries}{}{0pt}{Aufgabe \thesheetnumber .\thesubsection\quad}
-	\titleformat{name=\subsubsection}			{\normalfont\bfseries}{}{0pt}{Aufgabe \thesheetnumber .\thesubsubsection\quad}
+	\titleformat{name=\section}			{\Large\bfseries}{\presectiontext\thesheetnumber .\thesection\quad}{0pt}{}
+	\titleformat{name=\subsection}		{\large\bfseries}{Aufgabe \thesheetnumber .\thesubsection\quad}{0pt}{}
+	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{Aufgabe \thesheetnumber .\thesubsubsection\quad}{0pt}{}
 }
 \newcommand{\setsectionstyletasksalphnum}
 {
-	\titleformat{name=\section}					{\Large\bfseries}{}{0pt}{\presectiontext\thesheetnumber .\thesection\quad}
-	\titleformat{name=\subsection}				{\large\bfseries}{}{0pt}{Aufgabe \thesheetnumber .\thesubsection\quad}
-	\titleformat{name=\subsubsection}			{\normalfont\bfseries}{}{0pt}{\alph{subsubsection})\quad}
+	\titleformat{name=\section}			{\Large\bfseries}{\presectiontext\thesheetnumber .\thesection\quad}{0pt}{}
+	\titleformat{name=\subsection}		{\large\bfseries}{Aufgabe \thesheetnumber .\thesubsection\quad}{0pt}{}
+	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
 }
 \newcommand{\setsectionstylealphnum}
 {
-	\titleformat{name=\section}					{\Large\bfseries}{}{0pt}{\thesheetnumber .\thesection\quad}
-	\titleformat{name=\subsection}				{\large\bfseries}{}{0pt}{\thesheetnumber .\thesubsection\quad}
-	\titleformat{name=\subsubsection}			{\normalfont\bfseries}{}{0pt}{\alph{subsubsection})\quad}
+	\titleformat{name=\section}			{\Large\bfseries}{\thesheetnumber .\thesection\quad}{0pt}{}
+	\titleformat{name=\subsection}		{\large\bfseries}{\thesheetnumber .\thesubsection\quad}{0pt}{}
+	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
 }
 \newcommand{\setsectionstyleplain}
 {
-	\titleformat{name=\section}					{\Large\bfseries}{}{0pt}{\thesection\quad}
-	\titleformat{name=\subsection}				{\large\bfseries}{}{0pt}{\thesubsection\quad}
-	\titleformat{name=\subsubsection}			{\normalfont\bfseries}{}{0pt}{\alph{subsubsection})\quad}
+	\titleformat{name=\section}			{\Large\bfseries}{\thesection\quad}{0pt}{}
+	\titleformat{name=\subsection}		{\large\bfseries}{\thesubsection\quad}{0pt}{}
+	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
 }
 
 
@@ -379,7 +381,7 @@
 		\ifnum \thedateyear = 1800
 			\error{start date not set!}
 		\else
-			\addtocounter{datenumber}{\datefreq*\thesheetnumber}\setdatebynumber{\thedatenumber}\datedate
+			\addtocounter{datenumber}{\datefreq*\thesheetnumber+\datefreq*\interruptions}\setdatebynumber{\thedatenumber}\datedate
 		\fi
 	\fi
 	\vspace{0.875cm}
