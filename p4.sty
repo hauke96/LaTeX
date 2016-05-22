@@ -33,7 +33,8 @@
 % \\ ------------\\‾‾‾‾‾‾//------------ //
 
 \usepackage[utf8]{inputenc}
-\usepackage{tikz}\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{amsmath}
 \usepackage{amssymb}
 %\usepackage[english]{babel}
 \usepackage{lastpage}
@@ -61,30 +62,191 @@
 \definecolor{light-light-gray}{gray}{0.85}
 \definecolor{cE2001A}{RGB}{226,0,26}
 \definecolor{cFFFFFF}{RGB}{255,255,255}
-\definecolor{darkred}{rgb}{0,0.55,0.8}
-\definecolor{darkred2}{rgb}{0,0.41,0.6}
-\definecolor{darkred3}{rgb}{0.2,0.4,0.6}
-\usecolortheme[named=darkred]{structure}
+\definecolor{p4blue}{rgb}{0,0.55,0.8}
+\definecolor{p4darkblue}{rgb}{0,0.41,0.6}
 
 \usetheme[compress]{Dresden}
+\usecolortheme[named=p4blue]{structure}
+
+\setbeamercovered{transparent}
+
 \setbeamerfont{headline}{size=\large}
-\setbeamerfont*{section in head/foot}{size=\tiny}
-%\setbeamercovered{transparent}
+\setbeamerfont*{section in head/foot}{size=\tiny, series=\bfseries}
+\setbeamerfont{subtitle}{size=\small}
+
 \setbeamertemplate{bibliography item}[text]
 \setbeamertemplate{itemize items}[square]
 \setbeamertemplate{itemize subitem}[triangle]
 \setbeamertemplate{section in toc}[square]
 \setbeamertemplate{subsection in toc}[square]
 \setbeamertemplate{caption}[numbered]
-\setbeamercolor*{title}{use=structure,fg=white,bg=structure.fg}
 \setbeamertemplate{title page}[default][colsep=-2bp]
-\setbeamercolor{block title}{bg=darkred2!100,fg=white}
-\setbeamercolor{block body}{bg=darkred3!25,fg=black}
+%\setbeamertemplate{mini frame}[box]
+%\setbeamertemplate{subsection in mini frame}[box]
+\addtobeamertemplate{subtitle}{\vskip-10cm}{}
+\setbeamertemplate{section in head/foot shaded}[default][75]
+
+\setbeamercolor*{title}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor{block title}{bg=p4darkblue!100,fg=white}
+\setbeamercolor{block body}{bg=p4darkblue!25,fg=black}
+\setbeamercolor{mini frame}{bg=white!50!p4darkblue,fg=white}
+
+
+
+%
+% Connect bullets:
+%
+
+\makeatletter
+\def\slideentry#1#2#3#4#5#6{%
+  %section number, subsection number, slide number, first/last frame, page number, part number
+  \ifnum#6=\c@part\ifnum#2>0\ifnum#3>0%
+    \ifbeamer@compress%
+      \advance\beamer@xpos by1\relax%
+    \else%
+      \beamer@xpos=#3\relax%
+      \beamer@ypos=#2\relax%
+    \fi%
+  \hbox to 0pt{%
+    \beamer@tempdim=-\beamer@vboxoffset%
+    \advance\beamer@tempdim by-\beamer@boxsize%
+    \multiply\beamer@tempdim by\beamer@ypos%
+    \advance\beamer@tempdim by -.05cm%
+    \raise\beamer@tempdim\hbox{%
+      \beamer@tempdim=\beamer@boxsize%
+      \multiply\beamer@tempdim by\beamer@xpos%
+      \advance\beamer@tempdim by -\beamer@boxsize%
+      \advance\beamer@tempdim by 1pt%
+      \kern\beamer@tempdim
+      \global\beamer@section@min@dim\beamer@tempdim
+      \hbox{\beamer@link(#4){%
+          \usebeamerfont{mini frame}%
+          \ifnum\c@section=#1%
+            \ifnum\c@subsection=#2%
+              \usebeamercolor[fg]{mini frame}%
+              \ifnum\c@subsectionslide=#3%
+                \ifnum#3=1%
+                  \usebeamertemplate{mini frame first}%\beamer@minislidehilight%
+                \else%
+                  \usebeamertemplate{mini frame}%\beamer@minislidehilight%
+                \fi
+              \else%
+                \ifnum#3=1%
+                  \usebeamertemplate{mini frame in current subsection first}%
+                \else%
+                  \usebeamertemplate{mini frame in current subsection}%\beamer@minisliderowhilight%
+                \fi
+              \fi%
+            \else%
+              \usebeamercolor{mini frame}%
+              %\color{fg!50!bg}%
+              \usebeamertemplate{mini frame in other subsection}%\beamer@minislide%
+            \fi%
+          \else%
+            \usebeamercolor{mini frame}%
+            %\color{fg!50!bg}%
+            \usebeamertemplate{mini frame in other subsection}%\beamer@minislide%
+          \fi%
+        }}}\hskip-10cm plus 1fil%
+  }\fi\fi%
+  \else%
+  \fakeslideentry{#1}{#2}{#3}{#4}{#5}{#6}%
+  \fi\ignorespaces
+  }
+\makeatother
+
+\defbeamertemplate{mini frame}{scaled circle}[1]
+{%
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathmoveto{\pgfpoint{0cm}{#1 * 0.05cm}} 
+    \pgfpathlineto{\pgfpoint{#1 * -0.04cm}{#1 * 0.05cm}} 
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{fill,stroke}
+  \end{pgfpicture}%
+}
+[action]
+{
+  \newlength{\myminiframesize}
+  \setlength{\myminiframesize}{0.14cm}
+  \newlength{\myminiframeoffset}
+  \setlength{\myminiframeoffset}{0.03cm}
+  \setbeamersize{mini frame size=#1\myminiframesize,mini frame offset=#1\myminiframeoffset}
+}
+
+\defbeamertemplate{mini frame first}{scaled circle}[1]
+{%
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{fill,stroke}
+  \end{pgfpicture}%
+}
+
+
+\defbeamertemplate{mini frame in current section}{scaled circle}[1]
+{%
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathmoveto{\pgfpoint{0cm}{#1 * 0.05cm}} 
+    \pgfpathlineto{\pgfpoint{#1 * -0.04cm}{#1 * 0.05cm}} 
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{stroke}
+  \end{pgfpicture}%
+}
+
+\defbeamertemplate{mini frame in other section}{scaled circle}[1]
+{%
+  \color{fg!50!bg}
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{stroke}
+  \end{pgfpicture}%
+}
+
+\defbeamertemplate{mini frame in current subsection}{scaled circle}[1]
+{%
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathmoveto{\pgfpoint{0cm}{#1 * 0.05cm}} 
+    \pgfpathlineto{\pgfpoint{#1 * -0.04cm}{#1 * 0.05cm}} 
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{stroke}
+  \end{pgfpicture}%
+}
+
+\defbeamertemplate{mini frame in current subsection first}{scaled circle}[1]
+{%
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{stroke}
+  \end{pgfpicture}%
+}
+
+\defbeamertemplate{mini frame in other subsection}{scaled circle}[1]
+{%
+  \color{fg!50!bg}
+  \begin{pgfpicture}{0pt}{0pt}{#1 * 0.1cm}{#1 * 0.1cm}
+    \pgfsetlinewidth{#1 * 0.4pt}
+    \pgfpathcircle{\pgfpoint{#1 * 0.05cm}{#1 * 0.05cm}}{#1 * 0.05cm}
+    \pgfusepath{stroke}
+  \end{pgfpicture}%
+}
+\newcommand{\scalingFactor}{1}
+\setbeamertemplate{mini frame}[scaled circle]{\scalingFactor}
+\setbeamertemplate{mini frame first}[scaled circle]{\scalingFactor}
+\setbeamertemplate{mini frame in current section}[scaled circle]{\scalingFactor}
+\setbeamertemplate{mini frame in current subsection}[scaled circle]{\scalingFactor}
+\setbeamertemplate{mini frame in current subsection first}[scaled circle]{\scalingFactor}
+\setbeamertemplate{mini frame in other section}[scaled circle]{\scalingFactor}
+\setbeamertemplate{mini frame in other subsection}[scaled circle]{\scalingFactor}
+
+
 
 \date{\footnotesize\today}
-\titlegraphic{\href{http://uni-hamburg.de/}{\uhhLogo{.15\textheight}}}
-
-\setbeamerfont{subtitle}{size=\small}
+\titlegraphic{\href{http://www.uni-hamburg.de/}{\uhhLogo{.15\textheight}}}
 
 \newcommand{\uhhLogo}[1]{
   \begin{adjustbox}{max height=#1}
