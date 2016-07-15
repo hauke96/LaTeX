@@ -13,13 +13,13 @@ echo -n "CREATE $path..."
 sudo mkdir -p $path
 echo "finished"
 echo -n "INSTALL dadp..."
-sudo copy dadp $path
+sudo cp dadp.sty $path
 echo "finished"
 echo -n "INSTALL gail..."
-sudo copy gail $path
+sudo cp gail.sty $path
 echo "finished"
 echo -n "INSTALL makrocol..."
-sudo copy makrocol $path
+sudo cp makrocol.sty $path
 echo "finished"
 echo -n "UPDATE the lr-R file..."
 sudo texhash --quiet
