@@ -1,8 +1,8 @@
 #!/bin/bash
 path=/usr/share/texlive/texmf-dist/tex/generic/hauke96/
-whoami="$(whoami)"
 
-echo "DOWNLOADING NEWEST PACKAGES..."
+# execute first echo call with sudo to get the necessary root permissions
+sudo echo "DOWNLOADING NEWEST PACKAGES..."
 echo ""
 echo -n "CREATE  folder ...... "
 sudo mkdir -p $path
@@ -15,6 +15,9 @@ sudo cp gail.sty $path
 echo "finished"
 echo -n "INSTALL makrocol .... "
 sudo cp makrocol.sty $path
+echo "finished"
+echo -n "INSTALL uniscript ... "
+sudo cp uniscript.cls $path
 echo "finished"
 echo -n "UPDATE  lr-R file ... "
 sudo texhash --quiet
