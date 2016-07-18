@@ -5,6 +5,9 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 
+\newcommand{\margin}{3cm}
+\usepackage[left=\margin, top=\margin, right=\margin, bottom=\margin, includeheadfoot]{geometry}
+
 % Section style from http://zoonek.free.fr/LaTeX/LaTeX_samples_section/0.html
 \makeatletter
 \def\section{\@ifstar\unnumberedsection\numberedsection}
