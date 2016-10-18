@@ -7,11 +7,11 @@ red="\033[0;31m"
 green="\033[0;32m"
 default="\033[0m"
 
-install() {
-    echo -n "INSTALL $1 $2"
+download() {
+    echo -n "download $1 $2"
     header=$(curl -s --head $url$1)
     valid=$(echo "$header" | grep "HTTP\/1\.1\s200\sOK")
-    content=$(curl -s $1)
+    content=$(curl -s $url$1)
     if [ -z "$valid" ]
     then
         echo "$red FAILED : "$(echo "$header" | grep "HTTP/1\.1")""
@@ -27,11 +27,11 @@ install() {
 # execute first echo call with sudo to get the necessary root permissions
 sudo echo "DOWNLOADING NEWEST PACKAGES..."
 
-install dadp.sty "........"
-install gail.sty "........"
-install makrocol.sty "...."
-install p4.sty ".........."
-install uniscript.cls "..."
+download dadp.sty "........"
+download gail.sty "........"
+download makrocol.sty "...."
+download p4.sty ".........."
+download uniscript.cls "..."
 
 echo ""
 echo "DONE"
