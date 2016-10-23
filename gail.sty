@@ -137,6 +137,12 @@
 	\titleformat{name=\subsection}		{\large\bfseries}{Aufgabe \thesheetnumber .\thesubsection\quad}{0pt}{}
 	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
 }
+\newcommand{\setsectionstylesimpletasksalphnum} % Aufgabe 1 - Aufgabe 1.1 - a)
+{
+	\titleformat{name=\section}			{\Large\bfseries}{\presectiontext \thesection\quad}{0pt}{}
+	\titleformat{name=\subsection}		{\large\bfseries}{Aufgabe \thesubsection\quad}{0pt}{}
+	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
+}
 \newcommand{\setsectionstylealphnum} % 1.1 - 1.1.1 - a)
 {
 	\titleformat{name=\section}			{\Large\bfseries}{\thesheetnumber .\thesection\quad}{0pt}{}
