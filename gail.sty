@@ -125,25 +125,25 @@
 \newcommand{\setstartdate}[3]{\setdatenumber{#1}{#2}{#3}}
 \newcommand{\setdatefreq}[1]{\renewcommand{\datefreq}{#1}}
 
-\newcommand{\setsectionstyletasks}
+\newcommand{\setsectionstyletasks} % 1.1 - 1.1.1 - 1.1.1.1
 {
 	\titleformat{name=\section}			{\Large\bfseries}{\presectiontext\thesheetnumber .\thesection\quad}{0pt}{}
 	\titleformat{name=\subsection}		{\large\bfseries}{Aufgabe \thesheetnumber .\thesubsection\quad}{0pt}{}
 	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{Aufgabe \thesheetnumber .\thesubsubsection\quad}{0pt}{}
 }
-\newcommand{\setsectionstyletasksalphnum}
+\newcommand{\setsectionstyletasksalphnum} % Aufgabe 1.1 - Aufgabe 1.1.1 - a)
 {
 	\titleformat{name=\section}			{\Large\bfseries}{\presectiontext\thesheetnumber .\thesection\quad}{0pt}{}
 	\titleformat{name=\subsection}		{\large\bfseries}{Aufgabe \thesheetnumber .\thesubsection\quad}{0pt}{}
 	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
 }
-\newcommand{\setsectionstylealphnum}
+\newcommand{\setsectionstylealphnum} % 1.1 - 1.1.1 - a)
 {
 	\titleformat{name=\section}			{\Large\bfseries}{\thesheetnumber .\thesection\quad}{0pt}{}
 	\titleformat{name=\subsection}		{\large\bfseries}{\thesheetnumber .\thesubsection\quad}{0pt}{}
 	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
 }
-\newcommand{\setsectionstyleplain}
+\newcommand{\setsectionstyleplain} % 1 - 1.1 - a)
 {
 	\titleformat{name=\section}			{\Large\bfseries}{\thesection\quad}{0pt}{}
 	\titleformat{name=\subsection}		{\large\bfseries}{\thesubsection\quad}{0pt}{}
