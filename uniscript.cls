@@ -1,4 +1,40 @@
-%\documentclass[a4paper]{article}
+% // ------------//______\\------------ \\
+% \\ ------------\\‾‾‾‾‾‾//------------ //
+%
+%
+%                uniscript
+%
+%  Style for Uni scripts and longer papers
+%
+%
+%
+%                 ver.1.0
+%
+%	    under GPL 3 by Hauke Stieler
+%
+%
+% << ------------<<======>>------------ >>
+%
+%
+%   Web: hauke-stieler.de
+%   Git: github.com/hauke96/LaTeX
+%
+%
+% << ------------<<======>>------------ >>
+%
+%
+% 	ver: 1.0
+% 		key feautres:
+%			- section style
+%			- toc style
+%			- page style
+%
+%
+% // ------------//______\\------------ \\
+% \\ ------------\\‾‾‾‾‾‾//------------ //
+
+
+
 \LoadClass{article}
 \usepackage{footnote}
 \usepackage{titlesec}

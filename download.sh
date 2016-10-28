@@ -1,4 +1,5 @@
 #!/bin/bash
+
 url=https://raw.githubusercontent.com/hauke96/LaTeX/master/
 
 # colors
@@ -21,9 +22,6 @@ download() {
     echo -n $default
 }
 
-# echo $(echo $header | grep "HTTP/1\.1")
-
-# execute first echo call with sudo to get the necessary root permissions
 echo "DOWNLOADING NEWEST PACKAGES..."
 
 download dadp.sty "........"

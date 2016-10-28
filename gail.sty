@@ -8,15 +8,15 @@
 %
 %
 %
-%                 ver.1.2
+%                 ver.1.3
 %
-%     Copyright (C) 2015 Hauke Stieler
+%	    under GPL 3 by Hauke Stieler
 %
 %
 % << ------------<<======>>------------ >>
 %
 %
-%   Web: hauke-stieler.de/blog/
+%   Web: hauke-stieler.de
 %   Git: github.com/hauke96/LaTeX
 %
 %
@@ -38,6 +38,11 @@
 %			- up to four authors
 %			- more individual sectioning
 %			- more detailed error messages
+%	ver 1.3
+%		key features:
+%			- a new style
+%			- some more setting opportunities
+%			- bug fixes
 %
 %	ToDo:
 %		- make more authors possible
@@ -98,6 +103,7 @@
 \newcommand{\thetitle}{\huge \error{title not set!}}
 
 \newcommand{\namecolumnwidth}{0.25\textwidth}
+\newcommand{\setnamecolumnwidth}[1]{\renewcommand{\namecolumnwidth}{#1}}
 
 
 
