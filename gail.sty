@@ -97,6 +97,8 @@
 
 \newcommand{\thetitle}{\huge \error{title not set!}}
 
+\newcommand{\namecolumnwidth}{0.25\textwidth}
+
 
 
 % << ------<<=====>>------ >>
@@ -216,7 +218,7 @@
 	\sbox1{\firstauthorvar}%
 	\sbox2{\firstauthorIDvar}%
 	
-	\begin{minipage}{0.25\textwidth}
+	\begin{minipage}{\namecolumnwidth}
 		\center
 		\ifdim\wd1=0pt
 			\error{first author not set!}
@@ -235,13 +237,13 @@
 	\sbox2{\secondauthorIDvar}%
 	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			% zeige error, dass name nicht existiert und zeige ID
 			\center\error{second author not set!} \\\small(\secondauthorIDvar)
 		\end{minipage}
 		\fi
 	\else % autor existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			\center \secondauthorvar \\\small
 			% prüfe ob id existiert
 			(\ifdim\wd2=0pt
@@ -256,13 +258,13 @@
 	\sbox2{\thirdauthorIDvar}%
 	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
-			\begin{minipage}{0.25\textwidth}
+			\begin{minipage}{\namecolumnwidth}
 			% zeige error, dass name nicht existiert und zeige ID
 				\center\error{third author not set!} \\\small(\thirdauthorIDvar)
 			\end{minipage}
 		\fi
 	\else % autor existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			\center \thirdauthorvar \\\small
 			% prüfe ob id existiert
 			(\ifdim\wd2=0pt
@@ -283,13 +285,13 @@
 	\sbox2{\fourthauthorIDvar}%
 	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
-			\begin{minipage}{0.25\textwidth}
+			\begin{minipage}{\namecolumnwidth}
 			% zeige error, dass name nicht existiert und zeige ID
 				\center\error{fourth author not set!} \\\small(\fourthauthorIDvar)
 			\end{minipage}
 		\fi
 	\else % autor existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			\center \fourthauthorvar \\\small
 			% prüfe ob id existiert
 			(\ifdim\wd2=0pt

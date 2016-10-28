@@ -25,7 +25,7 @@ download() {
 # echo $(echo $header | grep "HTTP/1\.1")
 
 # execute first echo call with sudo to get the necessary root permissions
-sudo echo "DOWNLOADING NEWEST PACKAGES..."
+echo "DOWNLOADING NEWEST PACKAGES..."
 
 download dadp.sty "........"
 download gail.sty "........"
