@@ -8,22 +8,21 @@ green="\033[0;32m"
 default="\033[0m"
 
 install() {
-    echo -n "INSTALL $1 $2"
+    echo -n "install $1 $2"
     header=$(curl -s --head $url$1)
     valid=$(echo "$header" | grep "HTTP\/1\.1\s200\sOK")
-    content=$(curl -s $1)
+    content=$(curl -s $url$1)
     if [ -z "$valid" ]
     then
         echo "$red FAILED : "$(echo "$header" | grep "HTTP/1\.1")""
     else
-        echo "$content" > /tmp/$1
+        printf "%s" "$content" > /tmp/$1
+        # Execute this in a seperate command to use the root rights
         sudo cp /tmp/$1 $path
         echo "$green finished"
     fi
     echo -n $default
 }
-
-# echo $(echo $header | grep "HTTP/1\.1")
 
 # execute first echo call with sudo to get the necessary root permissions
 sudo echo "DOWNLOADING NEWEST PACKAGES..."

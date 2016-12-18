@@ -8,15 +8,15 @@
 %
 %
 %
-%                 ver.1.2
+%                 ver.1.3
 %
-%     Copyright (C) 2015 Hauke Stieler
+%	    under GPL 3 by Hauke Stieler
 %
 %
 % << ------------<<======>>------------ >>
 %
 %
-%   Web: hauke-stieler.de/blog/
+%   Web: hauke-stieler.de
 %   Git: github.com/hauke96/LaTeX
 %
 %
@@ -38,6 +38,11 @@
 %			- up to four authors
 %			- more individual sectioning
 %			- more detailed error messages
+%	ver 1.3
+%		key features:
+%			- a new style
+%			- some more setting opportunities
+%			- bug fixes
 %
 %	ToDo:
 %		- make more authors possible
@@ -64,7 +69,6 @@
 \usepackage{fancyhdr}
 \usepackage{color}
 \usepackage{hyperref}
-\usepackage{makrocol}
 
 \usepackage[left=3cm,right=2.5cm,top=3.5cm,bottom=3cm]{geometry}
 
@@ -96,6 +100,9 @@
 \newcommand{\interruptions}{0}
 
 \newcommand{\thetitle}{\huge \error{title not set!}}
+
+\newcommand{\namecolumnwidth}{0.25\textwidth}
+\newcommand{\setnamecolumnwidth}[1]{\renewcommand{\namecolumnwidth}{#1}}
 
 
 
@@ -156,6 +163,12 @@
 	\titleformat{name=\section}			{\Large\bfseries}{\thesection\quad}{0pt}{}[\resetsubsectioncounter]
 	\titleformat{name=\subsection}		{\large\bfseries}{\thesubsection\quad}{0pt}{}
 	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\alph{subsubsection})\quad}{0pt}{}
+}
+\newcommand{\setsectionstylesimpletasksalphnumroman} % Aufgabe 1 - Aufgabe 1.a - i)
+{
+	\titleformat{name=\section}			{\Large\bfseries}{\presectiontext \thesection\quad}{0pt}{}[\resetsubsectioncounter]
+	\titleformat{name=\subsection}		{\large\bfseries}{\presectiontext \thesection.\alph{subsection}\quad}{0pt}{}
+	\titleformat{name=\subsubsection}	{\normalfont\bfseries}{\roman{subsubsection})\quad}{0pt}{}
 }
 
 
@@ -218,7 +231,7 @@
 	\sbox1{\firstauthorvar}%
 	\sbox2{\firstauthorIDvar}%
 	
-	\begin{minipage}{0.25\textwidth}
+	\begin{minipage}{\namecolumnwidth}
 		\center
 		\ifdim\wd1=0pt
 			\error{first author not set!}
@@ -237,13 +250,13 @@
 	\sbox2{\secondauthorIDvar}%
 	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			% zeige error, dass name nicht existiert und zeige ID
 			\center\error{second author not set!} \\\small(\secondauthorIDvar)
 		\end{minipage}
 		\fi
 	\else % autor existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			\center \secondauthorvar \\\small
 			% prüfe ob id existiert
 			(\ifdim\wd2=0pt
@@ -258,13 +271,13 @@
 	\sbox2{\thirdauthorIDvar}%
 	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
-			\begin{minipage}{0.25\textwidth}
+			\begin{minipage}{\namecolumnwidth}
 			% zeige error, dass name nicht existiert und zeige ID
 				\center\error{third author not set!} \\\small(\thirdauthorIDvar)
 			\end{minipage}
 		\fi
 	\else % autor existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			\center \thirdauthorvar \\\small
 			% prüfe ob id existiert
 			(\ifdim\wd2=0pt
@@ -285,13 +298,13 @@
 	\sbox2{\fourthauthorIDvar}%
 	\ifdim\wd1=0pt % prüfe ob zweiter autor NICHT existiert
 		\ifdim\wd2>0pt % autor existiert NICHT, nun prüfe ob die ID existiert
-			\begin{minipage}{0.25\textwidth}
+			\begin{minipage}{\namecolumnwidth}
 			% zeige error, dass name nicht existiert und zeige ID
 				\center\error{fourth author not set!} \\\small(\fourthauthorIDvar)
 			\end{minipage}
 		\fi
 	\else % autor existiert
-		\begin{minipage}{0.25\textwidth}
+		\begin{minipage}{\namecolumnwidth}
 			\center \fourthauthorvar \\\small
 			% prüfe ob id existiert
 			(\ifdim\wd2=0pt
@@ -399,7 +412,7 @@
 % Title stuff
 % << ------<<=====>>------ >>
 \author{\theauthors}
-\title{\thetitle\n\thesubtitle\\\vspace{0.2cm}\normalsize
+\title{\thetitle\\\vspace{5pt}\thesubtitle\\\vspace{0.2cm}\normalsize
 	\sbox1{\carerVar}%
 	\ifdim\wd1=0pt
 	\else
