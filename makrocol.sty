@@ -8,7 +8,7 @@
 %
 %
 %
-%                 ver.1.0
+%                 ver.1.1
 %
 %	    under GPL 3 by Hauke Stieler
 %
@@ -28,6 +28,10 @@
 %			- not-environment (prints some hints/notes/comments)
 %			- An extra-space new line calles \n
 %
+% 	ver: 1.1
+% 		key feautres:
+%			- add dependencies for algorithms
+%
 %
 % // ------------//______\\------------ \\
 % \\ ------------\\‾‾‾‾‾‾//------------ //
@@ -38,6 +42,8 @@
 \usepackage{colortbl}
 \usepackage{mathtools}
 \usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 
 
@@ -85,12 +91,12 @@
 \newcommand{\Null}{\textbf{null}}
 \newcommand{\Nil}{\textbf{nil}}
 
-\newenvironment{pseudocode}[2]
+\newenvironment{pseudocode}[1]
 {
 	\alglanguage{pseudocode}
 	\begin{breakablealgorithm}
 		\caption{#1}
-		\begin{algorithmic}[1]
+		\begin{algorithmic}
 }
 {
 		\end{algorithmic}
