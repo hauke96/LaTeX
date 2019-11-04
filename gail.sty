@@ -141,6 +141,7 @@
 \newcommand{\setdatefreq}[1]{\renewcommand{\datefreq}{#1}}
 
 \newcommand{\resetsubsectioncounter}{\setcounter{subsubsection}{0}\setcounter{subsection}{0}}
+\newcommand{\skiptask}{\stepcounter{section}\resetsubsectioncounter} % Aufgabe überspringen, aber counter hochzählen
 
 \newcommand{\setsectionstyletasks} % 1.1 - 1.1.1 - 1.1.1.1
 {
